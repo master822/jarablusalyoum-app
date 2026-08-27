@@ -1,0 +1,6 @@
+{
+  "name": "جرابلس اليوم",
+  "description": "منصة محلية شاملة لمدينة جرابلس تجمع بين الأخبار، الإعلانات، العقارات، السوق، الخدمات، فرص العمل، ولوحات التحكم المتخصصة",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

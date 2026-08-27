@@ -1,0 +1,85 @@
+name: Build Android APK (jarablusalyoum.apk)
+
+on:
+  push:
+    branches: [ "main", "master" ]
+    tags:
+      - 'v*'
+  pull_request:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build jarablusalyoum.apk
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up Java 21 (Adoptium Temurin)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          cache: 'gradle'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Accept Android SDK Licenses
+        run: yes | sdkmanager --licenses || true
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Prepare configuration and keystore
+        run: |
+          # Ensure .env exists from .env.example
+          if [ ! -f .env ]; then
+            cp .env.example .env
+          fi
+          # Restore debug keystore from base64 if needed
+          if [ ! -f debug.keystore ] && [ -f debug.keystore.base64 ]; then
+            base64 -d debug.keystore.base64 > debug.keystore
+          fi
+
+      - name: Build APK with Gradle
+        run: ./gradlew assembleDebug --no-daemon --stacktrace
+
+      - name: Prepare jarablusalyoum.apk output
+        run: |
+          APK_FILE=$(find app/build/outputs/apk/debug -name "*.apk" | head -n 1)
+          if [ -z "$APK_FILE" ]; then
+            echo "::error::Could not find debug APK in app/build/outputs/apk/debug"
+            exit 1
+          fi
+          echo "Found generated APK at: $APK_FILE"
+          cp "$APK_FILE" jarablusalyoum.apk
+          echo "jarablusalyoum.apk ready for download:"
+          ls -lh jarablusalyoum.apk
+
+      - name: Upload jarablusalyoum.apk Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: jarablusalyoum.apk
+          path: jarablusalyoum.apk
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Create GitHub Release (on tag)
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: jarablusalyoum.apk
+          name: Release ${{ github.ref_name }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
