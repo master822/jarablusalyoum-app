@@ -48,7 +48,7 @@ fun NewsScreen(
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { showAddDialog = true },
+                onClick = { viewModel.navigateTo(AppScreen.CREATE_NEWS_OR_AD) },
                 containerColor = GoldPrimary,
                 contentColor = Color.Black,
                 modifier = Modifier.testTag("add_news_fab")

@@ -7,18 +7,24 @@ enum class UserRole(val labelAr: String) {
     USER("مستخدم عادي"),
     MERCHANT("تاجر"),
     SERVICE_PROVIDER("مقدم خدمة"),
-    ADMIN("مدير النظام")
+    ADMIN("مدير النظام");
+
+    val arabicName: String get() = labelAr
 }
 
 enum class ModerationStatus(val labelAr: String) {
     PENDING("قيد المراجعة"),
     APPROVED("تمت الموافقة"),
-    REJECTED("مرفوض")
+    REJECTED("مرفوض");
+
+    val arabicName: String get() = labelAr
 }
 
 enum class PropertyType(val labelAr: String) {
     SALE("للبيع"),
-    RENT("للإيجار")
+    RENT("للإيجار");
+
+    val arabicName: String get() = labelAr
 }
 
 @Entity(tableName = "users")

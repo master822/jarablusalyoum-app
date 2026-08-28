@@ -48,7 +48,7 @@ fun AnnouncementsScreen(
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { showAddDialog = true },
+                onClick = { viewModel.navigateTo(AppScreen.CREATE_NEWS_OR_AD) },
                 containerColor = PurpleSecondary,
                 contentColor = Color.White,
                 modifier = Modifier.testTag("add_announcement_fab")

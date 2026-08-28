@@ -37,6 +37,7 @@ fun JarablusApp(
         AppScreen.MERCHANT_SUBSCRIPTION_PLANS,
         AppScreen.SUBSCRIPTION_PAYMENT,
         AppScreen.SERVICE_PROVIDER_PORTFOLIO,
+        AppScreen.CREATE_NEWS_OR_AD,
         AppScreen.ADMIN_DASHBOARD
     )
 
@@ -221,6 +222,12 @@ fun JarablusApp(
                             viewModel = viewModel,
                             isDark = isDarkMode,
                             onNavigateBack = { viewModel.navigateTo(AppScreen.SERVICE_DASHBOARD) }
+                        )
+                        AppScreen.CREATE_NEWS_OR_AD -> CreateNewsOrAdScreen(
+                            viewModel = viewModel,
+                            isDark = isDarkMode,
+                            onNavigateBack = { viewModel.navigateTo(AppScreen.HOME) },
+                            onNavigateProperty = { viewModel.navigateTo(AppScreen.CREATE_PROPERTY) }
                         )
                         else -> HomeScreen(viewModel = viewModel)
                     }

@@ -2,6 +2,8 @@ package com.example.ui.viewmodel
 
 import android.app.Application
 import android.content.Context
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data.db.JarablusDatabase
@@ -327,13 +329,22 @@ class JarablusViewModel(application: Application) : AndroidViewModel(application
     fun removePortfolioImage(index: Int) {
         viewModelScope.launch {
             val user = _currentUser.value
-            val currentList = if (user.portfolioImages.isBlank()) emptyList() else user.portfolioImages.split("|").toMutableList()
+            val currentList: MutableList<String> = if (user.portfolioImages.isBlank()) mutableListOf() else user.portfolioImages.split("|").toMutableList()
             if (index in currentList.indices) {
                 currentList.removeAt(index)
                 val updatedString = currentList.joinToString("|")
                 val updatedUser = user.copy(portfolioImages = updatedString)
                 repository.updateUserPortfolio(user.id, updatedString)
                 _currentUser.value = updatedUser
+            }
+        }
+    }
+
+    fun selectProvider(providerId: Long) {
+        viewModelScope.launch {
+            val user = repository.getUser(providerId)
+            if (user != null) {
+                _selectedProvider.value = user
             }
         }
     }
@@ -533,13 +544,6 @@ class JarablusViewModel(application: Application) : AndroidViewModel(application
             flowOf(emptyList())
         }
     }
-
-    // SUBSCRIPTIONS
-    val allSubscriptions: StateFlow<List<SubscriptionEntity>> = repository.allSubscriptions
-        .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
-
-    val pendingSubscriptions: StateFlow<List<SubscriptionEntity>> = repository.pendingSubscriptions
-        .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
 
     // SEARCH STATE
     private val _searchQuery = MutableStateFlow("")

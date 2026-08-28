@@ -20,10 +20,12 @@ val PurpleContainerDark = Color(0xFF24103C)
 val BgLight = Color(0xFFF8FAFC)
 val SurfaceLight = Color(0xFFFFFFFF)
 val SurfaceVariantLight = Color(0xFFF1F5F9)
+val BorderLight = Color(0xFFE2E8F0)
 
 val BgDark = Color(0xFF0B0F17)
 val SurfaceDark = Color(0xFF131B2A)
 val SurfaceVariantDark = Color(0xFF1E293B)
+val BorderDark = Color(0xFF334155)
 val FooterDark = Color(0xFF0F172A)
 
 // Text Colors

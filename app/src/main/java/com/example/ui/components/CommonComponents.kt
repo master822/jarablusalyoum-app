@@ -512,7 +512,8 @@ fun LikeCommentBar(
 
 @Composable
 fun RejectionReasonDialog(
-    isOpen: Boolean,
+    isOpen: Boolean = true,
+    title: String = "سبب رفض المحتوى",
     onDismiss: () -> Unit,
     onConfirm: (String) -> Unit
 ) {
@@ -522,7 +523,7 @@ fun RejectionReasonDialog(
     AlertDialog(
         onDismissRequest = onDismiss,
         title = {
-            Text("سبب رفض المحتوى", fontWeight = FontWeight.Bold)
+            Text(title, fontWeight = FontWeight.Bold)
         },
         text = {
             Column {
