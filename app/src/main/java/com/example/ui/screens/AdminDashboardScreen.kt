@@ -56,14 +56,19 @@ enum class AdminSubPage {
 fun AdminDashboardScreen(
     viewModel: JarablusViewModel,
     isDark: Boolean,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onNavigateBack: () -> Unit = {}
 ) {
     var currentPage by remember { mutableStateOf(AdminSubPage.OVERVIEW) }
     val context = LocalContext.current
 
-    // Handle system back button to return to overview if in sub-page
-    BackHandler(enabled = currentPage != AdminSubPage.OVERVIEW) {
-        currentPage = AdminSubPage.OVERVIEW
+    // Handle system back button: return to overview if in subpage, else exit dashboard to Home
+    BackHandler(enabled = true) {
+        if (currentPage != AdminSubPage.OVERVIEW) {
+            currentPage = AdminSubPage.OVERVIEW
+        } else {
+            onNavigateBack()
+        }
     }
 
     val pendingNews by viewModel.pendingNews.collectAsState()
@@ -80,41 +85,45 @@ fun AdminDashboardScreen(
         modifier = modifier.fillMaxSize(),
         containerColor = if (isDark) BgDark else BgLight,
         topBar = {
-            if (currentPage != AdminSubPage.OVERVIEW) {
-                TopAppBar(
-                    title = {
-                        Text(
-                            text = when (currentPage) {
-                                AdminSubPage.MODERATE_NEWS -> "مراجعة وتدقيق الأخبار"
-                                AdminSubPage.MODERATE_ANNOUNCEMENTS -> "مراجعة الإعلانات المبوبة"
-                                AdminSubPage.MODERATE_PROPERTIES -> "مراجعة العقارات وإشعارات الدفع"
-                                AdminSubPage.MODERATE_SUBSCRIPTIONS -> "اشتراكات التجار وشام كاش"
-                                AdminSubPage.MANAGE_USERS -> "إدارة المستخدمين والحسابات"
-                                AdminSubPage.MODERATE_COMMENTS -> "مراجعة التعليقات"
-                                AdminSubPage.SHAMCASH_SETTINGS -> "إعدادات كود شام كاش"
-                                else -> "لوحة التحكم"
-                            },
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 18.sp
-                        )
-                    },
-                    navigationIcon = {
-                        IconButton(
-                            onClick = { currentPage = AdminSubPage.OVERVIEW },
-                            modifier = Modifier.testTag("admin_back_to_overview")
-                        ) {
-                            Icon(
-                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = "العودة للرئيسية"
-                            )
-                        }
-                    },
-                    colors = TopAppBarDefaults.topAppBarColors(
-                        containerColor = if (isDark) SurfaceDark else SurfaceLight,
-                        titleContentColor = if (isDark) TextPrimaryDark else TextPrimaryLight
+            TopAppBar(
+                title = {
+                    Text(
+                        text = when (currentPage) {
+                            AdminSubPage.OVERVIEW -> "لوحة الإدارة العامة"
+                            AdminSubPage.MODERATE_NEWS -> "مراجعة وتدقيق الأخبار"
+                            AdminSubPage.MODERATE_ANNOUNCEMENTS -> "مراجعة الإعلانات المبوبة"
+                            AdminSubPage.MODERATE_PROPERTIES -> "مراجعة العقارات وإشعارات الدفع"
+                            AdminSubPage.MODERATE_SUBSCRIPTIONS -> "اشتراكات التجار وشام كاش"
+                            AdminSubPage.MANAGE_USERS -> "إدارة المستخدمين والحسابات"
+                            AdminSubPage.MODERATE_COMMENTS -> "مراجعة التعليقات"
+                            AdminSubPage.SHAMCASH_SETTINGS -> "إعدادات كود شام كاش"
+                        },
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 18.sp
                     )
+                },
+                navigationIcon = {
+                    IconButton(
+                        onClick = {
+                            if (currentPage != AdminSubPage.OVERVIEW) {
+                                currentPage = AdminSubPage.OVERVIEW
+                            } else {
+                                onNavigateBack()
+                            }
+                        },
+                        modifier = Modifier.testTag("admin_back_button")
+                    ) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = if (currentPage != AdminSubPage.OVERVIEW) "العودة للوحة الإدارة" else "العودة للرئيسية"
+                        )
+                    }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = if (isDark) SurfaceDark else SurfaceLight,
+                    titleContentColor = if (isDark) TextPrimaryDark else TextPrimaryLight
                 )
-            }
+            )
         }
     ) { innerPadding ->
         Box(

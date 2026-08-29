@@ -45,6 +45,7 @@ fun MarketScreen(
     }
 
     Scaffold(
+        contentWindowInsets = WindowInsets(0.dp),
         floatingActionButton = {
             FloatingActionButton(
                 onClick = { showAddDialog = true },

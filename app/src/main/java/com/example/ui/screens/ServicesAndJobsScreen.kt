@@ -41,6 +41,7 @@ fun ServicesAndJobsScreen(
     var showAddJobDialog by remember { mutableStateOf(false) }
 
     Scaffold(
+        contentWindowInsets = WindowInsets(0.dp),
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {

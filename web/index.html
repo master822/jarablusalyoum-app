@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تطبيق جرابلس اليوم | الموقع الرسمي والتحميل المباشر</title>
+    <meta name="description" content="حمّل تطبيق جرابلس اليوم الرسمي للأندرويد - منصة الأخبار العاجلة، الإعلانات المبوبة، العقارات، دليل الخدمات، والمتاجر في مدينة جرابلس وريفها.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gold: #C5A059;
+            --primary-gold-light: #E0C078;
+            --primary-gold-dark: #9E7D38;
+            --bg-dark: #0F172A;
+            --surface-dark: #1E293B;
+            --card-dark: #334155;
+            --text-primary: #F8FAFC;
+            --text-secondary: #94A3B8;
+            --accent-green: #10B981;
+            --accent-teal: #0D9488;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(197, 160, 89, 0.2);
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--primary-gold), var(--primary-gold-dark));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            box-shadow: 0 4px 15px rgba(197, 160, 89, 0.35);
+        }
+
+        .logo-text h1 {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .logo-text span {
+            font-size: 11px;
+            color: var(--primary-gold);
+            letter-spacing: 0.5px;
+            display: block;
+        }
+
+        .btn-header {
+            background: var(--primary-gold);
+            color: #000;
+            padding: 9px 20px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 13px;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 12px rgba(197, 160, 89, 0.25);
+        }
+
+        .btn-header:hover {
+            background: var(--primary-gold-light);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 70px 0 50px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(197, 160, 89, 0.12);
+            border: 1px solid rgba(197, 160, 89, 0.3);
+            color: var(--primary-gold-light);
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .hero h2 {
+            font-size: clamp(28px, 5vw, 44px);
+            font-weight: 900;
+            color: #FFFFFF;
+            margin-bottom: 18px;
+            line-height: 1.25;
+        }
+
+        .hero h2 span {
+            color: var(--primary-gold);
+            background: linear-gradient(135deg, var(--primary-gold-light), var(--primary-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-desc {
+            max-width: 650px;
+            margin: 0 auto 35px;
+            font-size: clamp(15px, 2.5vw, 17px);
+            color: var(--text-secondary);
+        }
+
+        .cta-group {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
+        .btn-download-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, var(--primary-gold), var(--primary-gold-dark));
+            color: #000;
+            padding: 16px 36px;
+            border-radius: 14px;
+            font-size: 18px;
+            font-weight: 800;
+            text-decoration: none;
+            box-shadow: 0 10px 25px rgba(197, 160, 89, 0.4);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-download-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 14px 30px rgba(197, 160, 89, 0.5);
+            background: linear-gradient(135deg, var(--primary-gold-light), var(--primary-gold));
+        }
+
+        .btn-download-primary svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .app-meta-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            color: var(--text-secondary);
+            font-size: 13px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .section-title h3 {
+            font-size: 26px;
+            font-weight: 800;
+            color: #FFFFFF;
+            margin-bottom: 8px;
+        }
+
+        .section-title p {
+            color: var(--text-secondary);
+            font-size: 15px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: var(--surface-dark);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 16px;
+            padding: 26px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            border-color: rgba(197, 160, 89, 0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+
+        .feature-card h4 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #FFF;
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Install Guide */
+        .install-box {
+            background: linear-gradient(180deg, var(--surface-dark), rgba(30, 41, 59, 0.6));
+            border: 1px solid rgba(197, 160, 89, 0.3);
+            border-radius: 20px;
+            padding: 35px;
+            margin: 40px 0;
+        }
+
+        .install-box h3 {
+            color: var(--primary-gold);
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .install-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .step-item {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 12px;
+            padding: 18px;
+            border-right: 3px solid var(--primary-gold);
+        }
+
+        .step-num {
+            font-weight: 900;
+            color: var(--primary-gold);
+            font-size: 16px;
+            margin-bottom: 6px;
+        }
+
+        .step-item p {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 30px 0;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 13px;
+            background: rgba(15, 23, 42, 0.95);
+        }
+
+        footer strong {
+            color: var(--primary-gold);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <a href="#" class="logo-box">
+                <div class="logo-icon">🏛️</div>
+                <div class="logo-text">
+                    <h1>جرابلس اليوم</h1>
+                    <span>JARABLUS ALYOUM APP</span>
+                </div>
+            </a>
+            <a href="/jarablusalyoum.apk" class="btn-header">تحميل الـ APK</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-badge">
+                <span>⚡</span> تطبيق الأندرويد الرسمي لمدينة جرابلس وريفها
+            </div>
+            <h2>كل ما يهمك في جرابلس، <br><span>بين يديك في تطبيق واحد</span></h2>
+            <p class="hero-desc">
+                تابع أحدث الأخبار العاجلة، تصفح واعرض العقارات للبيع والإيجار، تسوّق عبر المتاجر المحلية، وتواصل فورياً مع أصحاب المهن والخدمات في المدينة.
+            </p>
+
+            <div class="cta-group">
+                <a href="/jarablusalyoum.apk" class="btn-download-primary">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-5H8l4-4 4 4h-3v5h-2z" transform="rotate(180 12 12)"/>
+                    </svg>
+                    تحميل التطبيق الآن (APK مجاناً)
+                </a>
+            </div>
+
+            <div class="app-meta-badge">
+                <div class="meta-item"><span>📱</span> نظام أندرويد 8.0 فما فوق</div>
+                <div class="meta-item"><span>🔒</span> آمن وموثوق ومجاني بالكامل</div>
+                <div class="meta-item"><span>⚡</span> نسخة خفيفة وسريعة التصفح</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="section-title">
+                <h3>أقسام وخدمات التطبيق</h3>
+                <p>صُمم خصيصاً لتلبية احتياجات أهالي مدينة جرابلس والتجار والحرفيين</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon" style="background: rgba(197, 160, 89, 0.15); color: var(--primary-gold);">📰</div>
+                    <h4>أخبار جرابلس وتغطية الأحداث</h4>
+                    <p>متابعة لحظية وموثوقة لكافة الأخبار الميدانية، القرارات الإدارية، وأحوال الطقس والخدمات العامة في المدينة.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon" style="background: rgba(13, 148, 136, 0.15); color: var(--accent-teal);">🏠</div>
+                    <h4>عقارات جرابلس للبيع والإيجار</h4>
+                    <p>ابحث عن منازل وشقق ومحلات تجارية أو انشر عقارك مع 4 صور واضحة ومواصفات تفصيلية بدقة وسهولة.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon" style="background: rgba(16, 185, 129, 0.15); color: var(--accent-green);">🛍️</div>
+                    <h4>سوق جرابلس وعروض التجار</h4>
+                    <p>تصفح منتجات المتاجر ومحلات المدينة مع باقات اشتراك مرنة للتجار للتسويق لمنتجاتهم وزيادة مبيعاتهم.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon" style="background: rgba(245, 158, 11, 0.15); color: #F59E0B);">🛠️</div>
+                    <h4>دليل الخدمات وأصحاب المهن</h4>
+                    <p>دليل شامل للسباكين، الكهربائيين، الفنيين، والمهن الحرة مع إمكانية استعراض معرض أعمالهم والتواصل عبر واتساب.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon" style="background: rgba(99, 102, 241, 0.15); color: #6366F1);">💳</div>
+                    <h4>سداد سريع عبر شام كاش</h4>
+                    <p>دعم الدفع المباشر عبر محفظة شام كاش للرسوم الرمزية وتفعيل باقات المتاجر خلال مدة وجيزة وبكل أمان.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon" style="background: rgba(236, 72, 153, 0.15); color: #EC4899);">👑</div>
+                    <h4>لوحات تحكم احترافية</h4>
+                    <p>واجهات سهلة ومخصصة لكل من الأدمن لمراجعة المحتوى، وللتجار لإدارة منتجاتهم، ولأصحاب المهن لإدارة معارضهم.</p>
+                </div>
+            </div>
+
+            <!-- Install Guide Box -->
+            <div class="install-box">
+                <h3><span>📥</span> طريقة تثبيت ملف التطبيق (APK) على هاتفك:</h3>
+                <div class="install-steps">
+                    <div class="step-item">
+                        <div class="step-num">الخطوة الأولى</div>
+                        <p>اضغط على زر <strong>تحميل التطبيق الآن</strong> أعلاه وانتظر اكتمال تحميل ملف APK.</p>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-num">الخطوة الثانية</div>
+                        <p>افتح الملف الذي تم تحميله، وإذا ظهرت رسالة أمان اختر <strong>السماح بالتثبيت من هذا المصدر</strong>.</p>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-num">الخطوة الثالثة</div>
+                        <p>اضغط على <strong>تثبيت (Install)</strong> ثم افتح التطبيق واستمتع بتجربة كافة الخدمات!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>جميع الحقوق محفوظة © 2026 <strong>تطبيق جرابلس اليوم</strong> - المنصة الشاملة لأهالي جرابلس وريفها</p>
+        </div>
+    </footer>
+
+</body>
+</html>

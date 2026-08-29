@@ -46,6 +46,7 @@ fun AnnouncementsScreen(
     }
 
     Scaffold(
+        contentWindowInsets = WindowInsets(0.dp),
         floatingActionButton = {
             FloatingActionButton(
                 onClick = { viewModel.navigateTo(AppScreen.CREATE_NEWS_OR_AD) },

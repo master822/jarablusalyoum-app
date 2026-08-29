@@ -44,14 +44,76 @@ fun JarablusApp(
     JarablusTodayTheme(darkTheme = isDarkMode) {
         // Enforce Arabic RTL Layout
         CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
-            Scaffold(
-                topBar = {
-                    if (!isFullScreen) {
-                        JarablusTopBar(viewModel = viewModel)
+            if (isFullScreen) {
+                Box(modifier = Modifier.fillMaxSize()) {
+                    when (currentScreen) {
+                        AppScreen.LOGIN -> LoginScreen(
+                            viewModel = viewModel,
+                            isDark = isDarkMode,
+                            onNavigateRegister = { viewModel.navigateTo(AppScreen.REGISTER) },
+                            onNavigateForgotPassword = { viewModel.navigateTo(AppScreen.FORGOT_PASSWORD) },
+                            onLoginSuccess = { viewModel.navigateTo(AppScreen.HOME) }
+                        )
+                        AppScreen.REGISTER -> RegisterScreen(
+                            viewModel = viewModel,
+                            isDark = isDarkMode,
+                            onNavigateLogin = { viewModel.navigateTo(AppScreen.LOGIN) },
+                            onRegisterSuccess = { viewModel.navigateTo(AppScreen.HOME) }
+                        )
+                        AppScreen.FORGOT_PASSWORD -> ForgotPasswordScreen(
+                            viewModel = viewModel,
+                            isDark = isDarkMode,
+                            onNavigateBack = { viewModel.navigateTo(AppScreen.LOGIN) }
+                        )
+                        AppScreen.CREATE_PROPERTY -> CreatePropertyScreen(
+                            viewModel = viewModel,
+                            isDark = isDarkMode,
+                            onNavigateBack = { viewModel.navigateTo(AppScreen.PROPERTIES) },
+                            onProceedToPayment = { viewModel.navigateTo(AppScreen.PROPERTY_PAYMENT) }
+                        )
+                        AppScreen.PROPERTY_PAYMENT -> PropertyPaymentScreen(
+                            viewModel = viewModel,
+                            isDark = isDarkMode,
+                            onNavigateBack = { viewModel.navigateTo(AppScreen.CREATE_PROPERTY) },
+                            onPaymentCompleted = { viewModel.navigateTo(AppScreen.PROPERTIES) }
+                        )
+                        AppScreen.MERCHANT_SUBSCRIPTION_PLANS -> MerchantSubscriptionPlansScreen(
+                            viewModel = viewModel,
+                            isDark = isDarkMode,
+                            onNavigateBack = { viewModel.navigateTo(AppScreen.MERCHANT_DASHBOARD) },
+                            onSelectPlan = { viewModel.navigateTo(AppScreen.SUBSCRIPTION_PAYMENT) }
+                        )
+                        AppScreen.SUBSCRIPTION_PAYMENT -> SubscriptionPaymentScreen(
+                            viewModel = viewModel,
+                            isDark = isDarkMode,
+                            onNavigateBack = { viewModel.navigateTo(AppScreen.MERCHANT_SUBSCRIPTION_PLANS) },
+                            onPaymentCompleted = { viewModel.navigateTo(AppScreen.MERCHANT_DASHBOARD) }
+                        )
+                        AppScreen.SERVICE_PROVIDER_PORTFOLIO -> ServiceProviderPortfolioScreen(
+                            viewModel = viewModel,
+                            isDark = isDarkMode,
+                            onNavigateBack = { viewModel.navigateTo(AppScreen.SERVICE_DASHBOARD) }
+                        )
+                        AppScreen.CREATE_NEWS_OR_AD -> CreateNewsOrAdScreen(
+                            viewModel = viewModel,
+                            isDark = isDarkMode,
+                            onNavigateBack = { viewModel.navigateTo(AppScreen.HOME) },
+                            onNavigateProperty = { viewModel.navigateTo(AppScreen.CREATE_PROPERTY) }
+                        )
+                        AppScreen.ADMIN_DASHBOARD -> AdminDashboardScreen(
+                            viewModel = viewModel,
+                            isDark = isDarkMode,
+                            onNavigateBack = { viewModel.navigateTo(AppScreen.HOME) }
+                        )
+                        else -> HomeScreen(viewModel = viewModel)
                     }
-                },
-                bottomBar = {
-                    if (!isFullScreen) {
+                }
+            } else {
+                Scaffold(
+                    topBar = {
+                        JarablusTopBar(viewModel = viewModel)
+                    },
+                    bottomBar = {
                         NavigationBar(
                             containerColor = MaterialTheme.colorScheme.surface,
                             tonalElevation = 4.dp
@@ -149,87 +211,33 @@ fun JarablusApp(
                         )
                         }
                     }
-                }
-            ) { innerPadding ->
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(innerPadding)
-                ) {
-                    when (currentScreen) {
-                        AppScreen.HOME -> HomeScreen(viewModel = viewModel)
-                        AppScreen.NEWS -> NewsScreen(viewModel = viewModel)
-                        AppScreen.NEWS_DETAILS -> NewsDetailsScreen(viewModel = viewModel)
-                        AppScreen.ANNOUNCEMENTS -> AnnouncementsScreen(viewModel = viewModel)
-                        AppScreen.PROPERTIES -> PropertiesScreen(viewModel = viewModel)
-                        AppScreen.PROPERTY_DETAILS -> PropertyDetailsScreen(viewModel = viewModel)
-                        AppScreen.MARKET -> MarketScreen(viewModel = viewModel)
-                        AppScreen.MERCHANTS -> MerchantsScreen(viewModel = viewModel)
-                        AppScreen.SERVICES -> ServicesAndJobsScreen(viewModel = viewModel, initialTab = 0)
-                        AppScreen.JOBS -> ServicesAndJobsScreen(viewModel = viewModel, initialTab = 1)
-                        AppScreen.DISCOUNTS -> MarketScreen(viewModel = viewModel)
-                        AppScreen.MESSAGES -> MessagesScreen(viewModel = viewModel)
-                        AppScreen.NOTIFICATIONS -> NotificationsScreen(viewModel = viewModel)
-                        AppScreen.ADMIN_DASHBOARD -> AdminDashboardScreen(viewModel = viewModel, isDark = isDarkMode)
-                        AppScreen.MERCHANT_DASHBOARD -> DashboardsScreen(viewModel = viewModel, dashboardType = AppScreen.MERCHANT_DASHBOARD)
-                        AppScreen.SERVICE_DASHBOARD -> DashboardsScreen(viewModel = viewModel, dashboardType = AppScreen.SERVICE_DASHBOARD)
-                        AppScreen.USER_DASHBOARD -> DashboardsScreen(viewModel = viewModel, dashboardType = AppScreen.USER_DASHBOARD)
-                        AppScreen.SEARCH -> SearchScreen(viewModel = viewModel)
-                        AppScreen.PROFILE -> ProfileScreen(viewModel = viewModel)
-                        AppScreen.LOGIN -> LoginScreen(
-                            viewModel = viewModel,
-                            isDark = isDarkMode,
-                            onNavigateRegister = { viewModel.navigateTo(AppScreen.REGISTER) },
-                            onNavigateForgotPassword = { viewModel.navigateTo(AppScreen.FORGOT_PASSWORD) },
-                            onLoginSuccess = { viewModel.navigateTo(AppScreen.HOME) }
-                        )
-                        AppScreen.REGISTER -> RegisterScreen(
-                            viewModel = viewModel,
-                            isDark = isDarkMode,
-                            onNavigateLogin = { viewModel.navigateTo(AppScreen.LOGIN) },
-                            onRegisterSuccess = { viewModel.navigateTo(AppScreen.HOME) }
-                        )
-                        AppScreen.FORGOT_PASSWORD -> ForgotPasswordScreen(
-                            viewModel = viewModel,
-                            isDark = isDarkMode,
-                            onNavigateBack = { viewModel.navigateTo(AppScreen.LOGIN) }
-                        )
-                        AppScreen.CREATE_PROPERTY -> CreatePropertyScreen(
-                            viewModel = viewModel,
-                            isDark = isDarkMode,
-                            onNavigateBack = { viewModel.navigateTo(AppScreen.PROPERTIES) },
-                            onProceedToPayment = { viewModel.navigateTo(AppScreen.PROPERTY_PAYMENT) }
-                        )
-                        AppScreen.PROPERTY_PAYMENT -> PropertyPaymentScreen(
-                            viewModel = viewModel,
-                            isDark = isDarkMode,
-                            onNavigateBack = { viewModel.navigateTo(AppScreen.CREATE_PROPERTY) },
-                            onPaymentCompleted = { viewModel.navigateTo(AppScreen.PROPERTIES) }
-                        )
-                        AppScreen.MERCHANT_SUBSCRIPTION_PLANS -> MerchantSubscriptionPlansScreen(
-                            viewModel = viewModel,
-                            isDark = isDarkMode,
-                            onNavigateBack = { viewModel.navigateTo(AppScreen.MERCHANT_DASHBOARD) },
-                            onSelectPlan = { viewModel.navigateTo(AppScreen.SUBSCRIPTION_PAYMENT) }
-                        )
-                        AppScreen.SUBSCRIPTION_PAYMENT -> SubscriptionPaymentScreen(
-                            viewModel = viewModel,
-                            isDark = isDarkMode,
-                            onNavigateBack = { viewModel.navigateTo(AppScreen.MERCHANT_SUBSCRIPTION_PLANS) },
-                            onPaymentCompleted = { viewModel.navigateTo(AppScreen.MERCHANT_DASHBOARD) }
-                        )
-                        AppScreen.SERVICE_PROVIDER_PORTFOLIO -> ServiceProviderPortfolioScreen(
-                            viewModel = viewModel,
-                            isDark = isDarkMode,
-                            onNavigateBack = { viewModel.navigateTo(AppScreen.SERVICE_DASHBOARD) }
-                        )
-                        AppScreen.CREATE_NEWS_OR_AD -> CreateNewsOrAdScreen(
-                            viewModel = viewModel,
-                            isDark = isDarkMode,
-                            onNavigateBack = { viewModel.navigateTo(AppScreen.HOME) },
-                            onNavigateProperty = { viewModel.navigateTo(AppScreen.CREATE_PROPERTY) }
-                        )
-                        else -> HomeScreen(viewModel = viewModel)
+                ) { innerPadding ->
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(innerPadding)
+                    ) {
+                        when (currentScreen) {
+                            AppScreen.HOME -> HomeScreen(viewModel = viewModel)
+                            AppScreen.NEWS -> NewsScreen(viewModel = viewModel)
+                            AppScreen.NEWS_DETAILS -> NewsDetailsScreen(viewModel = viewModel)
+                            AppScreen.ANNOUNCEMENTS -> AnnouncementsScreen(viewModel = viewModel)
+                            AppScreen.PROPERTIES -> PropertiesScreen(viewModel = viewModel)
+                            AppScreen.PROPERTY_DETAILS -> PropertyDetailsScreen(viewModel = viewModel)
+                            AppScreen.MARKET -> MarketScreen(viewModel = viewModel)
+                            AppScreen.MERCHANTS -> MerchantsScreen(viewModel = viewModel)
+                            AppScreen.SERVICES -> ServicesAndJobsScreen(viewModel = viewModel, initialTab = 0)
+                            AppScreen.JOBS -> ServicesAndJobsScreen(viewModel = viewModel, initialTab = 1)
+                            AppScreen.DISCOUNTS -> MarketScreen(viewModel = viewModel)
+                            AppScreen.MESSAGES -> MessagesScreen(viewModel = viewModel)
+                            AppScreen.NOTIFICATIONS -> NotificationsScreen(viewModel = viewModel)
+                            AppScreen.MERCHANT_DASHBOARD -> DashboardsScreen(viewModel = viewModel, dashboardType = AppScreen.MERCHANT_DASHBOARD)
+                            AppScreen.SERVICE_DASHBOARD -> DashboardsScreen(viewModel = viewModel, dashboardType = AppScreen.SERVICE_DASHBOARD)
+                            AppScreen.USER_DASHBOARD -> DashboardsScreen(viewModel = viewModel, dashboardType = AppScreen.USER_DASHBOARD)
+                            AppScreen.SEARCH -> SearchScreen(viewModel = viewModel)
+                            AppScreen.PROFILE -> ProfileScreen(viewModel = viewModel)
+                            else -> HomeScreen(viewModel = viewModel)
+                        }
                     }
                 }
             }

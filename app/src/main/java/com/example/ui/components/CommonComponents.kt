@@ -49,7 +49,11 @@ fun JarablusTopBar(
         color = if (isDark) SurfaceDark else SurfaceLight,
         tonalElevation = 4.dp
     ) {
-        Column {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .statusBarsPadding()
+        ) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()

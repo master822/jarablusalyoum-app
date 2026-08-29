@@ -43,6 +43,7 @@ fun PropertiesScreen(
     }
 
     Scaffold(
+        contentWindowInsets = WindowInsets(0.dp),
         floatingActionButton = {
             FloatingActionButton(
                 onClick = { viewModel.navigateTo(AppScreen.CREATE_PROPERTY) },

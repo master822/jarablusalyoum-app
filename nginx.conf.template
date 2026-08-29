@@ -1,0 +1,22 @@
+server {
+    listen ${PORT};
+    server_name _;
+
+    root /usr/share/nginx/html;
+    index index.html;
+
+    # Gzip Compression
+    gzip on;
+    gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    # APK direct download headers
+    location ~* \.apk$ {
+        add_header Content-Disposition 'attachment; filename="jarablusalyoum.apk"';
+        add_header Content-Type 'application/vnd.android.package-archive';
+        add_header Cache-Control 'public, no-cache';
+    }
+}
